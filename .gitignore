@@ -1,0 +1,114 @@
+# -------------------------------------------------------------------
+# Flutter & Dart Hardware Artifacts
+# -------------------------------------------------------------------
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# IntelliJ / Android Studio
+*.iml
+*.ipr
+*.iws
+.idea/
+.project
+.classpath
+.settings/
+.springBeans
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# -------------------------------------------------------------------
+# Flutter/Dart/Pub
+# -------------------------------------------------------------------
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+# If you prefer to track pubspec.lock, leave this commented. 
+# If this is an app, tracking the lock file is standard. If it is a package, it should be ignored.
+# pubspec.lock
+# Generate plugin files
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# -------------------------------------------------------------------
+# Android Native Build
+# -------------------------------------------------------------------
+**/android/app/build/
+**/android/build/
+**/android/app/src/main/gen/
+**/android/app/src/main/assets/flutter_assets/
+**/android/app/src/profile/
+**/android/app/src/release/
+**/android/local.properties
+**/android/gradle-wrapper.jar
+**/android/app/app.apk
+**/android/app/app.aab
+
+# -------------------------------------------------------------------
+# iOS Build
+# -------------------------------------------------------------------
+**/ios/DerivedData/
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+
+# -------------------------------------------------------------------
+# macOS Build
+# -------------------------------------------------------------------
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+
+# -------------------------------------------------------------------
+# Firebase Security & Configuration
+# -------------------------------------------------------------------
+**/android/app/google-services.json
+**/ios/Runner/GoogleService-Info.plist
+**/macos/Runner/GoogleService-Info.plist
+firebase_options.dart
+.firebase/
+firebase-debug.log*
+
+# -------------------------------------------------------------------
+# Secrets / Cloudinary / Env Vars
+# -------------------------------------------------------------------
+.env
+.env.*
+*.cert
+*.pem
+*.key
+*.keystore
+*.jks
+# lib/core/constants/cloudinary_config.dart # Ignore this locally if you don't use .env
+
+# -------------------------------------------------------------------
+# Fastlane & Deployment
+# -------------------------------------------------------------------
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+**/fastlane/readme.md
+# Exclude session keystores/tokens
+**/fastlane/AuthKey_*.p8
+**/fastlane/cookie
