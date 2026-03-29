@@ -133,6 +133,10 @@ class _StatusBadge extends StatelessWidget {
         color = AppColors.accepted;
         label = '✅ Accepted';
         break;
+      case RequestStatus.completed:
+        color = AppColors.teal;
+        label = '🔁 Exchanged';
+        break;
       case RequestStatus.rejected:
         color = AppColors.rejected;
         label = '❌ Rejected';

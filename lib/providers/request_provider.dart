@@ -65,6 +65,22 @@ class RequestProvider extends ChangeNotifier {
     }
   }
 
+  Future<bool> completeExchange(RequestModel request) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await _requestService.completeExchange(request);
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
+  }
+
   Future<void> rejectRequest(String requestId) async {
     await _requestService.rejectRequest(requestId);
   }

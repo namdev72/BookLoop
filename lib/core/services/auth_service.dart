@@ -23,7 +23,7 @@ class AuthService {
         uid: cred.user!.uid,
         name: name,
         email: email,
-        tokenBalance: 10,
+        tokenBalance: 100,
         booksListed: 0,
         createdAt: DateTime.now(),
       );

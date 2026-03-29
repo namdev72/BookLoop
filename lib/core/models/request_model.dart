@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum RequestStatus { pending, accepted, rejected }
+enum RequestStatus { pending, accepted, rejected, completed }
 
 class RequestModel {
   final String id;

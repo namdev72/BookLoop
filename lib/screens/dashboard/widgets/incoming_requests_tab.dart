@@ -113,7 +113,7 @@ class IncomingRequestsTab extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text('Accept Exchange?', style: AppTextStyles.headlineMedium),
         content: Text(
-          '${req.requesterName} will send you ${req.tokenPrice} 🪙 tokens for "${req.bookTitle}".\n\nThis cannot be undone.',
+          '${req.requesterName} has requested "${req.bookTitle}".\n\nIf you accept, they will be notified to confirm the exchange and transfer ${req.tokenPrice} 🪙 tokens to you.',
           style: AppTextStyles.bodyMedium,
         ),
         actions: [
@@ -135,7 +135,7 @@ class IncomingRequestsTab extends StatelessWidget {
                         : AppColors.rejected,
                     content: Text(
                       success
-                          ? '✅ Exchange accepted! ${req.tokenPrice} tokens added.'
+                          ? '✅ Request accepted! Waiting for user to confirm exchange.'
                           : 'Failed to accept request.',
                       style: AppTextStyles.labelLarge
                           .copyWith(color: Colors.white),

@@ -30,6 +30,11 @@ class RequestService {
   }
 
   Future<void> acceptRequest(RequestModel request) async {
+    // Just update request status to accepted
+    await _requests.doc(request.id).update({'status': 'accepted'});
+  }
+
+  Future<void> completeExchange(RequestModel request) async {
     // 1. Verify requester still has enough tokens
     final requesterDoc = await _users.doc(request.requesterId).get();
     if (!requesterDoc.exists) throw Exception("Requester not found.");
@@ -38,13 +43,13 @@ class RequestService {
     final currentBalance = requesterData['tokenBalance'] as int? ?? 0;
     
     if (currentBalance < request.tokenPrice) {
-      throw Exception("The requester no longer has enough tokens for this exchange.");
+      throw Exception("You do not have enough tokens to complete this exchange.");
     }
 
     final batch = _firestore.batch();
 
-    // Update request status
-    batch.update(_requests.doc(request.id), {'status': 'accepted'});
+    // Update request status to completed
+    batch.update(_requests.doc(request.id), {'status': 'completed'});
 
     // Deduct tokens from requester
     batch.update(_users.doc(request.requesterId), {
