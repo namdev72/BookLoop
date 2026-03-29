@@ -307,38 +307,30 @@ class _MessageBubble extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
-                gradient: isMe ? AppColors.tealGradient : null,
-                color: isMe ? null : AppColors.cardDark,
+                color: isMe ? AppColors.teal : AppColors.cardLight,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(18),
                   topRight: const Radius.circular(18),
                   bottomLeft: Radius.circular(isMe ? 18 : 4),
                   bottomRight: Radius.circular(isMe ? 4 : 18),
                 ),
-                border: isMe
-                    ? null
-                    : Border.all(color: AppColors.glassBorder),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(message.text,
-                      style: AppTextStyles.bodyLarge
-                          .copyWith(color: Colors.white)),
+                  Text(
+                    message.text,
+                    style: AppTextStyles.bodyLarge.copyWith(
+                      color: isMe ? Colors.white : AppColors.textPrimary,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(time,
-                      style: AppTextStyles.labelSmall.copyWith(
-                        color: isMe
-                            ? Colors.white60
-                            : AppColors.textMuted,
-                      )),
+                  Text(
+                    time,
+                    style: AppTextStyles.labelSmall.copyWith(
+                      color: isMe ? Colors.white60 : AppColors.textMuted,
+                    ),
+                  ),
                 ],
               ),
             ),

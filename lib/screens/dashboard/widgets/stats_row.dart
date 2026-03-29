@@ -18,14 +18,6 @@ class StatsRow extends StatelessWidget {
       child: Row(
         children: [
           _StatCard(
-            title: 'Tokens',
-            value: '${user.tokenBalance}',
-            icon: '🪙',
-            gradient: AppColors.goldGradient,
-            glowColor: AppColors.gold,
-          ),
-          const SizedBox(width: 12),
-          _StatCard(
             title: 'Listed',
             value: '${user.booksListed}',
             icon: '📚',

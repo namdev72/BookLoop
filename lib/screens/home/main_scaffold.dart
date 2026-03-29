@@ -63,16 +63,12 @@ class _MainScaffoldState extends State<MainScaffold>
   Widget _buildGlassHeader(String userName, int tokens, AuthProvider auth) {
     return ClipRRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
         child: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xCC0A0E1A), Color(0xAA111827)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+            color: AppColors.glassWhite,
             border: Border(
-              bottom: BorderSide(color: AppColors.glassBorder, width: 0.5),
+              bottom: BorderSide(color: AppColors.glassBorder, width: 1),
             ),
           ),
           child: SafeArea(
@@ -85,16 +81,16 @@ class _MainScaffoldState extends State<MainScaffold>
                   Row(
                     children: [
                       Container(
-                        width: 36,
-                        height: 36,
+                        width: 38,
+                        height: 38,
                         decoration: BoxDecoration(
-                          gradient: AppColors.goldGradient,
-                          borderRadius: BorderRadius.circular(10),
+                          gradient: AppColors.purpleGradient,
+                          borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.gold.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
+                              color: AppColors.purple.withOpacity(0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 3),
                             ),
                           ],
                         ),
@@ -102,33 +98,42 @@ class _MainScaffoldState extends State<MainScaffold>
                             color: Colors.white, size: 20),
                       ),
                       const SizedBox(width: 10),
-                      Text('BookLoop', style: AppTextStyles.logoStyle.copyWith(fontSize: 19)),
+                      RichText(
+                        text: TextSpan(
+                          style: AppTextStyles.logoStyle.copyWith(fontSize: 22, letterSpacing: -0.5),
+                          children: const [
+                            TextSpan(text: 'Book', style: TextStyle(color: AppColors.textPrimary)),
+                            TextSpan(text: 'Loop', style: TextStyle(color: AppColors.purple)),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                   const Spacer(),
                   // Token pill
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: AppColors.gold.withOpacity(0.12),
+                      color: AppColors.goldLight, // amber-50
                       borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: AppColors.gold.withOpacity(0.3)),
+                      border: Border.all(color: const Color(0xFFFDE68A)), // amber-200
                     ),
                     child: Row(
                       children: [
-                        const Text('🪙', style: TextStyle(fontSize: 14)),
-                        const SizedBox(width: 6),
+                        const Icon(Icons.toll_outlined, size: 18, color: AppColors.pending),
+                        const SizedBox(width: 4),
                         Text(
                           '$tokens',
                           style: AppTextStyles.titleMedium.copyWith(
-                            color: AppColors.gold,
+                            color: AppColors.pending, // amber-700
                             fontSize: 15,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 12),
                   // Logout
                   GestureDetector(
                     onTap: () => _showLogoutDialog(auth),
@@ -136,12 +141,11 @@ class _MainScaffoldState extends State<MainScaffold>
                       width: 38,
                       height: 38,
                       decoration: BoxDecoration(
-                        color: AppColors.glassWhite,
+                        color: Colors.transparent,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppColors.glassBorder),
                       ),
-                      child: const Icon(Icons.logout_rounded,
-                          color: AppColors.textSecondary, size: 18),
+                      child: const Icon(Icons.output_rounded,
+                          color: AppColors.textSecondary, size: 22),
                     ),
                   ),
                 ],

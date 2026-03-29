@@ -36,11 +36,10 @@ class BookLoopApp extends StatelessWidget {
   ThemeData _buildTheme() {
     return ThemeData(
       scaffoldBackgroundColor: AppColors.background,
-      colorScheme: ColorScheme.dark(
-        primary: AppColors.gold,
+      colorScheme: ColorScheme.light(
+        primary: AppColors.purple,
         secondary: AppColors.teal,
         surface: AppColors.surface,
-        background: AppColors.background,
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.surface,
@@ -93,11 +92,11 @@ class _SplashScreen extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                gradient: AppColors.goldGradient,
+                gradient: AppColors.purpleGradient,
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.gold.withOpacity(0.4),
+                    color: AppColors.purple.withOpacity(0.4),
                     blurRadius: 30,
                     offset: const Offset(0, 10),
                   ),
@@ -107,26 +106,30 @@ class _SplashScreen extends StatelessWidget {
                   color: Colors.white, size: 44),
             ),
             const SizedBox(height: 24),
-            const Text(
-              'BookLoop',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w800,
-                color: Color(0xFFF5C842),
-                letterSpacing: 1,
+            RichText(
+              text: const TextSpan(
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1,
+                ),
+                children: [
+                  TextSpan(text: 'Book', style: TextStyle(color: AppColors.textPrimary)),
+                  TextSpan(text: 'Loop', style: TextStyle(color: AppColors.purple)),
+                ],
               ),
             ),
             const SizedBox(height: 8),
             const Text(
               'Exchange knowledge, build communities',
-              style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 14),
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
             ),
             const SizedBox(height: 40),
             const SizedBox(
               width: 28,
               height: 28,
               child: CircularProgressIndicator(
-                color: Color(0xFFF5C842),
+                color: AppColors.purple,
                 strokeWidth: 2.5,
               ),
             ),

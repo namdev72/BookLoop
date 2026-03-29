@@ -3,39 +3,39 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppTextStyles {
-  static TextStyle get displayLarge => GoogleFonts.outfit(
+  static TextStyle get displayLarge => GoogleFonts.sora(
         fontSize: 32,
         fontWeight: FontWeight.w800,
         color: AppColors.textPrimary,
         letterSpacing: -0.5,
       );
 
-  static TextStyle get displayMedium => GoogleFonts.outfit(
+  static TextStyle get displayMedium => GoogleFonts.sora(
         fontSize: 26,
         fontWeight: FontWeight.w700,
         color: AppColors.textPrimary,
         letterSpacing: -0.3,
       );
 
-  static TextStyle get headlineLarge => GoogleFonts.outfit(
+  static TextStyle get headlineLarge => GoogleFonts.sora(
         fontSize: 22,
         fontWeight: FontWeight.w700,
         color: AppColors.textPrimary,
       );
 
-  static TextStyle get headlineMedium => GoogleFonts.outfit(
+  static TextStyle get headlineMedium => GoogleFonts.sora(
         fontSize: 18,
         fontWeight: FontWeight.w600,
         color: AppColors.textPrimary,
       );
 
-  static TextStyle get titleLarge => GoogleFonts.outfit(
+  static TextStyle get titleLarge => GoogleFonts.sora(
         fontSize: 16,
         fontWeight: FontWeight.w600,
         color: AppColors.textPrimary,
       );
 
-  static TextStyle get titleMedium => GoogleFonts.outfit(
+  static TextStyle get titleMedium => GoogleFonts.sora(
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: AppColors.textPrimary,
@@ -67,10 +67,10 @@ class AppTextStyles {
         letterSpacing: 0.5,
       );
 
-  static TextStyle get logoStyle => GoogleFonts.outfit(
+  static TextStyle get logoStyle => GoogleFonts.sora(
         fontSize: 22,
         fontWeight: FontWeight.w800,
-        color: AppColors.gold,
+        color: AppColors.purple,
         letterSpacing: 0.5,
       );
 }
