@@ -5,6 +5,7 @@ import '../../core/constants/app_text_styles.dart';
 import '../../core/models/book_model.dart';
 import '../../core/models/request_model.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/book_provider.dart';
 import '../../providers/request_provider.dart';
 
 class BookDetailScreen extends StatelessWidget {
@@ -83,8 +84,19 @@ class BookDetailScreen extends StatelessWidget {
                   const SizedBox(height: 28),
                   if (!isOwner && isAvailable && user != null)
                     _RequestButton(book: book, user: user),
-                  if (!isAvailable)
+                  if (!isAvailable && !isOwner)
                     _buildExchangedBanner(),
+                  // Owner actions for exchanged books
+                  if (isOwner && !isAvailable) ...[
+                    _buildExchangedBanner(),
+                    const SizedBox(height: 16),
+                    _ReuploadButton(book: book),
+                  ],
+                  // Delete button for owner
+                  if (isOwner) ...[
+                    const SizedBox(height: 16),
+                    _DeleteButton(book: book),
+                  ],
                   const SizedBox(height: 40),
                 ],
               ),
@@ -288,3 +300,190 @@ class _RequestButtonState extends State<_RequestButton> {
     }
   }
 }
+
+class _DeleteButton extends StatefulWidget {
+  final BookModel book;
+  const _DeleteButton({required this.book});
+
+  @override
+  State<_DeleteButton> createState() => _DeleteButtonState();
+}
+
+class _DeleteButtonState extends State<_DeleteButton> {
+  bool _loading = false;
+
+  void _confirmDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.cardDark,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text('Delete Book?', style: AppTextStyles.headlineMedium),
+        content: Text(
+          'This will permanently delete "${widget.book.title}" from your listings.\n\nThis action cannot be undone.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text('Cancel',
+                style: AppTextStyles.labelLarge
+                    .copyWith(color: AppColors.textSecondary)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(ctx);
+              setState(() => _loading = true);
+              final bookProvider = context.read<BookProvider>();
+              final success = await bookProvider.deleteBook(
+                  widget.book.id, widget.book.ownerId);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor:
+                        success ? AppColors.accepted : AppColors.rejected,
+                    content: Text(
+                      success
+                          ? '🗑️ Book deleted successfully.'
+                          : 'Failed to delete book.',
+                      style:
+                          AppTextStyles.labelLarge.copyWith(color: Colors.white),
+                    ),
+                  ),
+                );
+                if (success) Navigator.pop(context);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.rejected,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+            ),
+            child: Text('Delete',
+                style: AppTextStyles.labelLarge.copyWith(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 52,
+      child: OutlinedButton.icon(
+        onPressed: _loading ? null : () => _confirmDelete(context),
+        icon: _loading
+            ? const SizedBox(
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(
+                    color: AppColors.rejected, strokeWidth: 2))
+            : const Icon(Icons.delete_outline_rounded, size: 20),
+        label: Text(_loading ? 'Deleting...' : '🗑️ Delete Book'),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.rejected,
+          side: const BorderSide(color: AppColors.rejected, width: 1.5),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        ),
+      ),
+    );
+  }
+}
+
+class _ReuploadButton extends StatefulWidget {
+  final BookModel book;
+  const _ReuploadButton({required this.book});
+
+  @override
+  State<_ReuploadButton> createState() => _ReuploadButtonState();
+}
+
+class _ReuploadButtonState extends State<_ReuploadButton> {
+  bool _loading = false;
+
+  void _confirmReupload(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.cardDark,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text('Re-upload Book?', style: AppTextStyles.headlineMedium),
+        content: Text(
+          '"${widget.book.title}" will be made available again for exchange.\n\nIt will reappear in its original category and be open for new requests.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text('Cancel',
+                style: AppTextStyles.labelLarge
+                    .copyWith(color: AppColors.textSecondary)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(ctx);
+              setState(() => _loading = true);
+              final bookProvider = context.read<BookProvider>();
+              final success =
+                  await bookProvider.reuploadBook(widget.book.id);
+              setState(() => _loading = false);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor:
+                        success ? AppColors.accepted : AppColors.rejected,
+                    content: Text(
+                      success
+                          ? '✅ Book is now available for exchange again!'
+                          : 'Failed to re-upload book.',
+                      style:
+                          AppTextStyles.labelLarge.copyWith(color: Colors.white),
+                    ),
+                  ),
+                );
+                if (success) Navigator.pop(context);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.teal,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+            ),
+            child: Text('Re-upload',
+                style: AppTextStyles.labelLarge.copyWith(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 52,
+      child: ElevatedButton.icon(
+        onPressed: _loading ? null : () => _confirmReupload(context),
+        icon: _loading
+            ? const SizedBox(
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(
+                    color: Colors.white, strokeWidth: 2))
+            : const Icon(Icons.refresh_rounded, size: 20),
+        label: Text(_loading ? 'Re-uploading...' : '🔄 Re-upload Book'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.teal,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.zero,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        ),
+      ),
+    );
+  }
+}
+

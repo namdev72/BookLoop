@@ -6,6 +6,7 @@ import '../../../core/models/exchange_model.dart';
 import '../../../providers/request_provider.dart';
 import '../../../widgets/empty_state.dart';
 import 'package:intl/intl.dart';
+import '../../chat/chat_screen.dart';
 
 class CompletedTab extends StatelessWidget {
   final String uid;
@@ -86,67 +87,98 @@ class _ExchangeCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
+      child: Column(
         children: [
-          // Book cover
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: exchange.bookCoverUrl.isNotEmpty
-                ? Image.network(
-                    exchange.bookCoverUrl,
-                    width: 56,
-                    height: 70,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => _PlaceholderCover(),
-                  )
-                : _PlaceholderCover(),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(exchange.bookTitle,
-                    style: AppTextStyles.titleMedium,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis),
-                const SizedBox(height: 6),
-                Row(
+          Row(
+            children: [
+              // Book cover
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: exchange.bookCoverUrl.isNotEmpty
+                    ? Image.network(
+                        exchange.bookCoverUrl,
+                        width: 56,
+                        height: 70,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => _PlaceholderCover(),
+                      )
+                    : _PlaceholderCover(),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: (isSent ? AppColors.blue : AppColors.green)
-                            .withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        isSent ? '📤 Sent' : '📥 Received',
-                        style: AppTextStyles.labelSmall.copyWith(
-                          color: isSent ? AppColors.blue : AppColors.green,
+                    Text(exchange.bookTitle,
+                        style: AppTextStyles.titleMedium,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: (isSent ? AppColors.blue : AppColors.green)
+                                .withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            isSent ? '📤 Sent' : '📥 Received',
+                            style: AppTextStyles.labelSmall.copyWith(
+                              color: isSent ? AppColors.blue : AppColors.green,
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(width: 8),
+                        Text(dateStr, style: AppTextStyles.labelSmall),
+                      ],
                     ),
-                    const SizedBox(width: 8),
-                    Text(dateStr, style: AppTextStyles.labelSmall),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '${isSent ? '-' : '+'}${exchange.tokens}',
+                    style: AppTextStyles.headlineMedium.copyWith(
+                      color: isSent ? AppColors.blue : AppColors.green,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const Text('🪙', style: TextStyle(fontSize: 16)),
+                ],
+              ),
+            ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '${isSent ? '-' : '+'}${exchange.tokens}',
-                style: AppTextStyles.headlineMedium.copyWith(
-                  color: isSent ? AppColors.blue : AppColors.green,
-                  fontWeight: FontWeight.w700,
+          const SizedBox(height: 12),
+          const Divider(color: AppColors.glassBorder, height: 1),
+          const SizedBox(height: 10),
+          Align(
+            alignment: Alignment.centerRight,
+            child: OutlinedButton.icon(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ChatScreen(
+                      exchange: exchange,
+                      currentUserId: isSent ? exchange.requesterId : exchange.ownerId),
                 ),
               ),
-              const Text('🪙', style: TextStyle(fontSize: 16)),
-            ],
+              icon: const Icon(Icons.chat_bubble_outline_rounded, size: 14),
+              label: const Text('Message'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppColors.teal,
+                side: const BorderSide(color: AppColors.teal, width: 1),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
           ),
         ],
       ),

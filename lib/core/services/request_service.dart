@@ -68,6 +68,7 @@ class RequestService {
     final exchangeRef = _exchanges.doc();
     final exchange = ExchangeModel(
       id: exchangeRef.id,
+      requestId: request.id,
       bookId: request.bookId,
       bookTitle: request.bookTitle,
       bookCoverUrl: request.bookCoverUrl,

@@ -79,4 +79,15 @@ class BookService {
     }
     return null;
   }
+
+  Future<void> deleteBook(String bookId, String ownerId) async {
+    await _books.doc(bookId).delete();
+    await _firestore.collection('users').doc(ownerId).update({
+      'booksListed': FieldValue.increment(-1),
+    });
+  }
+
+  Future<void> reuploadBook(String bookId) async {
+    await _books.doc(bookId).update({'status': 'available'});
+  }
 }

@@ -4,19 +4,22 @@ import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../core/models/message_model.dart';
 import '../../core/models/request_model.dart';
+import '../../core/models/exchange_model.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 
 class ChatScreen extends StatefulWidget {
-  final RequestModel request;
+  final RequestModel? request;
+  final ExchangeModel? exchange;
   final String currentUserId;
 
   const ChatScreen({
     super.key,
-    required this.request,
+    this.request,
+    this.exchange,
     required this.currentUserId,
-  });
+  }) : assert(request != null || exchange != null);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -26,10 +29,22 @@ class _ChatScreenState extends State<ChatScreen> {
   final _controller = TextEditingController();
   final _scrollController = ScrollController();
 
+  String get _chatDocId {
+    if (widget.request != null) return widget.request!.id;
+    final ex = widget.exchange!;
+    return ex.requestId.isNotEmpty ? ex.requestId : ex.id;
+  }
+
   CollectionReference get _messages => FirebaseFirestore.instance
       .collection('messages')
-      .doc(widget.request.id)
+      .doc(_chatDocId)
       .collection('chats');
+
+  String get _bookTitle => widget.request?.bookTitle ?? widget.exchange!.bookTitle;
+  int get _tokenPrice => widget.request?.tokenPrice ?? widget.exchange!.tokens;
+  String get _requesterId => widget.request?.requesterId ?? widget.exchange!.requesterId;
+  String get _requesterName => widget.request?.requesterName ?? widget.exchange!.requesterName;
+  String get _ownerName => widget.request?.ownerName ?? widget.exchange!.ownerName;
 
   Future<void> _send() async {
     final text = _controller.text.trim();
@@ -69,9 +84,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final req = widget.request;
-    final isRequester = widget.currentUserId == req.requesterId;
-    final otherName = isRequester ? req.ownerName : req.requesterName;
+    final isRequester = widget.currentUserId == _requesterId;
+    final otherName = isRequester ? _ownerName : _requesterName;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -105,7 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 Text(otherName, style: AppTextStyles.titleMedium),
                 Text(
-                  'Re: ${req.bookTitle}',
+                  'Re: $_bookTitle',
                   style: AppTextStyles.labelSmall,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -132,7 +146,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    '"${req.bookTitle}" · 🪙 ${req.tokenPrice} tokens',
+                    '"$_bookTitle" · 🪙 $_tokenPrice tokens',
                     style: AppTextStyles.bodyMedium
                         .copyWith(color: AppColors.gold),
                     overflow: TextOverflow.ellipsis,

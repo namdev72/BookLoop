@@ -64,4 +64,28 @@ class BookProvider extends ChangeNotifier {
     notifyListeners();
     return true;
   }
+
+  Future<bool> deleteBook(String bookId, String ownerId) async {
+    try {
+      await _bookService.deleteBook(bookId, ownerId);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _uploadError = e.toString();
+      notifyListeners();
+      return false;
+    }
+  }
+
+  Future<bool> reuploadBook(String bookId) async {
+    try {
+      await _bookService.reuploadBook(bookId);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _uploadError = e.toString();
+      notifyListeners();
+      return false;
+    }
+  }
 }

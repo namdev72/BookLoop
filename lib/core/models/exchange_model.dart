@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ExchangeModel {
   final String id;
+  final String requestId;
   final String bookId;
   final String bookTitle;
   final String bookCoverUrl;
@@ -14,6 +15,7 @@ class ExchangeModel {
 
   ExchangeModel({
     required this.id,
+    required this.requestId,
     required this.bookId,
     required this.bookTitle,
     required this.bookCoverUrl,
@@ -28,6 +30,7 @@ class ExchangeModel {
   factory ExchangeModel.fromMap(Map<String, dynamic> map, String id) {
     return ExchangeModel(
       id: id,
+      requestId: map['requestId'] ?? '',
       bookId: map['bookId'] ?? '',
       bookTitle: map['bookTitle'] ?? '',
       bookCoverUrl: map['bookCoverUrl'] ?? '',
@@ -41,6 +44,7 @@ class ExchangeModel {
   }
 
   Map<String, dynamic> toMap() => {
+        'requestId': requestId,
         'bookId': bookId,
         'bookTitle': bookTitle,
         'bookCoverUrl': bookCoverUrl,
