@@ -108,6 +108,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   Widget _buildTabBar() {
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.cardDark,
         borderRadius: BorderRadius.circular(14),
@@ -115,6 +116,9 @@ class _DashboardScreenState extends State<DashboardScreen>
       ),
       child: TabBar(
         controller: _tabController,
+        isScrollable: true,
+        tabAlignment: TabAlignment.start,
+        labelPadding: const EdgeInsets.symmetric(horizontal: 16),
         indicator: BoxDecoration(
           gradient: AppColors.goldGradient,
           borderRadius: BorderRadius.circular(11),

@@ -93,12 +93,11 @@ class SubjectBooksScreen extends StatelessWidget {
               return SliverPadding(
                 padding: const EdgeInsets.all(16),
                 sliver: SliverGrid(
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
-                    childAspectRatio: 0.62,
+                    mainAxisExtent: 280,
                   ),
                   delegate: SliverChildBuilderDelegate(
                     (ctx, i) => BookCard(

@@ -17,21 +17,23 @@ class EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(icon, style: const TextStyle(fontSize: 64)),
-            const SizedBox(height: 20),
-            Text(title,
-                style: AppTextStyles.headlineMedium,
-                textAlign: TextAlign.center),
-            const SizedBox(height: 10),
-            Text(subtitle,
-                style: AppTextStyles.bodyMedium,
-                textAlign: TextAlign.center),
-          ],
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(icon, style: const TextStyle(fontSize: 64)),
+              const SizedBox(height: 20),
+              Text(title,
+                  style: AppTextStyles.headlineMedium,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: 10),
+              Text(subtitle,
+                  style: AppTextStyles.bodyMedium,
+                  textAlign: TextAlign.center),
+            ],
+          ),
         ),
       ),
     );

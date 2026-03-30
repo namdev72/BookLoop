@@ -216,42 +216,50 @@ class _MainScaffoldState extends State<MainScaffold>
     final isActive = _currentIndex == index;
     final item = _navItems[index];
 
-    return GestureDetector(
-      onTap: () => setState(() => _currentIndex = index),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        curve: Curves.easeOutBack,
-        transform: Matrix4.translationValues(0, isActive ? -4 : 0, 0),
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-        decoration: BoxDecoration(
-          color: isActive
-              ? AppColors.gold.withOpacity(0.12)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() => _currentIndex = index),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOutBack,
+          transform: Matrix4.translationValues(0, isActive ? -4 : 0, 0),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          decoration: BoxDecoration(
             color: isActive
-                ? AppColors.gold.withOpacity(0.3)
+                ? AppColors.gold.withOpacity(0.12)
                 : Colors.transparent,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isActive
+                  ? AppColors.gold.withOpacity(0.3)
+                  : Colors.transparent,
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              item.icon,
-              color: isActive ? AppColors.gold : AppColors.textMuted,
-              size: 22,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              item.label,
-              style: AppTextStyles.labelSmall.copyWith(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                item.icon,
                 color: isActive ? AppColors.gold : AppColors.textMuted,
-                fontWeight:
-                    isActive ? FontWeight.w600 : FontWeight.w400,
+                size: 22,
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              Flexible(
+                child: Text(
+                  item.label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.labelSmall.copyWith(
+                    color: isActive ? AppColors.gold : AppColors.textMuted,
+                    fontWeight:
+                        isActive ? FontWeight.w600 : FontWeight.w400,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

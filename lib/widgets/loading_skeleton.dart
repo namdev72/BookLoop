@@ -42,7 +42,7 @@ class _GridLoadingSkeletonState extends State<GridLoadingSkeleton>
             crossAxisCount: 2,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
-            childAspectRatio: 0.62,
+            mainAxisExtent: 280,
           ),
           itemCount: 6,
           itemBuilder: (ctx, i) => Container(

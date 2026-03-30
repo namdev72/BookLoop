@@ -31,11 +31,13 @@ class BooksScreen extends StatelessWidget {
             _buildHeader(),
             const SizedBox(height: 24),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 1.2,
+              child: GridView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  mainAxisExtent: 130,
+                ),
                 physics: const BouncingScrollPhysics(),
                 children: _genres.map((g) => _GenreCardWidget(genre: g)).toList(),
               ),

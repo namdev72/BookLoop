@@ -49,10 +49,13 @@ class AcademicScreen extends StatelessWidget {
             _buildHeader(),
             const SizedBox(height: 28),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 14,
-                mainAxisSpacing: 14,
+              child: GridView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 14,
+                  mainAxisSpacing: 14,
+                  mainAxisExtent: 195,
+                ),
                 physics: const BouncingScrollPhysics(),
                 children: _subjects.map((s) => _SubjectCardWidget(subject: s)).toList(),
               ),

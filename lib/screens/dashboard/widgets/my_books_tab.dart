@@ -36,7 +36,7 @@ class MyBooksTab extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
-            childAspectRatio: 0.62,
+            mainAxisExtent: 280,
           ),
           itemCount: books.length,
           itemBuilder: (ctx, i) => BookCard(
