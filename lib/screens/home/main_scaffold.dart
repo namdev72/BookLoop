@@ -9,6 +9,7 @@ import '../academic/academic_screen.dart';
 import '../books/books_screen.dart';
 import '../community/community_screen.dart';
 import '../add_book/add_book_modal.dart';
+import './home_screen.dart';
 
 class MainScaffold extends StatefulWidget {
   const MainScaffold({super.key});
@@ -22,6 +23,7 @@ class _MainScaffoldState extends State<MainScaffold>
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
+    const HomeScreen(),
     const DashboardScreen(),
     const AcademicScreen(),
     const BooksScreen(),
@@ -29,6 +31,7 @@ class _MainScaffoldState extends State<MainScaffold>
   ];
 
   final List<_NavItem> _navItems = [
+    _NavItem(icon: Icons.home_rounded, label: 'Home'),
     _NavItem(icon: Icons.dashboard_rounded, label: 'Dashboard'),
     _NavItem(icon: Icons.school_rounded, label: 'Academic'),
     _NavItem(icon: Icons.auto_stories_rounded, label: 'Books'),
@@ -55,7 +58,7 @@ class _MainScaffoldState extends State<MainScaffold>
           ),
         ],
       ),
-      floatingActionButton: _currentIndex == 3 ? null : _buildFAB(user),
+      floatingActionButton: _currentIndex == 4 ? null : _buildFAB(user),
       bottomNavigationBar: _buildBottomNav(),
     );
   }
@@ -78,36 +81,47 @@ class _MainScaffoldState extends State<MainScaffold>
               child: Row(
                 children: [
                   // Logo
-                  Row(
-                    children: [
-                      Container(
-                        width: 38,
-                        height: 38,
-                        decoration: BoxDecoration(
-                          gradient: AppColors.purpleGradient,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.purple.withOpacity(0.3),
-                              blurRadius: 8,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      if (Navigator.of(context).canPop()) {
+                        Navigator.of(context).popUntil((route) => route.isFirst);
+                      }
+                      if (_currentIndex != 0) {
+                        setState(() => _currentIndex = 0);
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 38,
+                          height: 38,
+                          decoration: BoxDecoration(
+                            gradient: AppColors.purpleGradient,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.purple.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(Icons.menu_book_rounded,
+                              color: Colors.white, size: 20),
                         ),
-                        child: const Icon(Icons.menu_book_rounded,
-                            color: Colors.white, size: 20),
-                      ),
-                      const SizedBox(width: 10),
-                      RichText(
-                        text: TextSpan(
-                          style: AppTextStyles.logoStyle.copyWith(fontSize: 22, letterSpacing: -0.5),
-                          children: const [
-                            TextSpan(text: 'Book', style: TextStyle(color: AppColors.textPrimary)),
-                            TextSpan(text: 'Loop', style: TextStyle(color: AppColors.purple)),
-                          ],
+                        const SizedBox(width: 10),
+                        RichText(
+                          text: TextSpan(
+                            style: AppTextStyles.logoStyle.copyWith(fontSize: 22, letterSpacing: -0.5),
+                            children: const [
+                              TextSpan(text: 'Book', style: TextStyle(color: AppColors.textPrimary)),
+                              TextSpan(text: 'Loop', style: TextStyle(color: AppColors.purple)),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const Spacer(),
                   // Token pill

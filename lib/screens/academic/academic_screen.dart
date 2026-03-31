@@ -36,6 +36,17 @@ class AcademicScreen extends StatelessWidget {
       glowColor: AppColors.gold,
       description: 'Tap to view books',
     ),
+    _SubjectCard(
+      title: 'Other',
+      icon: Icons.category_rounded,
+      gradient: const LinearGradient(
+        colors: [Color(0xFF94A3B8), Color(0xFF475569)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      glowColor: const Color(0xFF64748B),
+      description: 'Various subjects',
+    ),
   ];
 
   @override

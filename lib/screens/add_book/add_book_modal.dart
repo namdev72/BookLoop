@@ -33,6 +33,7 @@ class _AddBookModalState extends State<AddBookModal> {
     'Software Engineering',
     'Microprocessors',
     'Cryptography',
+    'Other',
   ];
 
   static const _genericGenres = [
@@ -46,6 +47,7 @@ class _AddBookModalState extends State<AddBookModal> {
     'Biography',
     'Travel',
     'Arts',
+    'Other',
   ];
 
   String _selectedGenre = 'Fiction';
