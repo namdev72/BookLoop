@@ -1,17 +1,84 @@
-# bookloop
+# 📚 BookLoop
 
-A new Flutter project.
+A Flutter-based peer-to-peer book exchange app where users can share and exchange books using tokens instead of money.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
 
-A few resources to get you started if this is your first Flutter project:
+- 📖 Browse all books
+- 🔍 Search books
+- 🔄 Exchange system
+- 🪙 Token-based model
+- 📂 Categories (Academic, Fiction, Other)
+- 👥 Community chat
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🏠 Home Screen
+
+- Shows all books by default  
+- Includes search feature  
+- Clicking BookLoop logo returns to Home  
+
+---
+
+## 📱 Screenshots
+
+### 🏠 Home
+![Home](screenshots/Home.jpeg)
+
+### 📚 Books
+![Books](screenshots/Books.jpeg)
+
+### 📊 Dashboard
+![Dashboard](screenshots/Dashboard.jpeg)
+
+### 📥 Request
+![Request](screenshots/Request.jpeg)
+
+### 📤 Incoming
+![Incoming](screenshots/Incoming.jpeg)
+
+### ✅ Completed
+![Complete](screenshots/Complete.jpeg)
+
+### 💬 Message
+![Message](screenshots/Message.jpeg)
+
+### 🎓 Academic
+![Academic](screenshots/Academic.jpeg)
+
+### 📖 Fiction
+![Fiction](screenshots/Fiction.jpeg)
+
+### 👥 Community Chat
+![Community](screenshots/Community%20chat.jpeg)
+
+### 🔁 Exchange Request
+![Exchange](screenshots/Exchange%20request.jpeg)
+
+### ➕ Add Book
+![Add Book](screenshots/List%20the%20book.jpeg)
+
+### 🗑️ Delete
+![Delete](screenshots/Delete.jpeg)
+
+---
+
+## 🛠️ Tech Stack
+
+- Flutter
+- Dart
+- Firebase
+- Cloudinary
+
+---
+
+## ⚙️ Run Locally
+
+```bash
+git clone https://github.com/namdev72/BookLoop.git
+cd BookLoop
+flutter pub get
+flutter run
